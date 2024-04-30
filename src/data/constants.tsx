@@ -1,0 +1,1 @@
+export const BACKEND_URL = 'https://bikeindex.org/api/v3'
