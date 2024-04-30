@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, Flex, Loader, Text, TextInput } from '@mantine/core';
+import { Box, Center, Flex, Loader, Text, TextInput } from '@mantine/core';
 import PaginationBox from './pagination';
 import List from './list';
 import { useQuery } from '@tanstack/react-query';
@@ -23,7 +23,14 @@ export default function Home() {
 
   return (
     <Box>
-      <Flex align="center" justify="space-between" w="100%" mb={30}>
+      <Flex
+        align="center"
+        justify="space-between"
+        w="100%"
+        mb={30}
+        direction={{ base: 'column', md: 'row' }}
+        gap={30}
+      >
         <Flex gap={10}>
           <Text fw={700}>Total Bike Theft Cases:</Text>
           {isLoading ? (
@@ -34,7 +41,7 @@ export default function Home() {
           {isError && <Text c={'red'}>Error while fetching count...</Text>}
         </Flex>
         <TextInput
-          w="30%"
+          w={{ base: '80%', md: '30%' }}
           placeholder="Search by Case Title"
           value={caseTitle}
           onChange={(e) => {
@@ -47,7 +54,9 @@ export default function Home() {
           setPage={setPage}
         />
       </Flex>
-      <List activePage={activePage} caseTitle={caseTitle} />
+      <Center>
+        <List activePage={activePage} caseTitle={caseTitle} />
+      </Center>
     </Box>
   );
 }

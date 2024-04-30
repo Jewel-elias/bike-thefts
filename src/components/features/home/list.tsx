@@ -2,7 +2,6 @@ import { useQuery } from '@tanstack/react-query';
 import { getBikesQuery } from '../../../hooks/useBikesQuery';
 import {
   BackgroundImage,
-  Box,
   Card,
   Center,
   Flex,
@@ -56,7 +55,7 @@ export default function List({ activePage, caseTitle }: listProps) {
     );
   return (
     <Stack>
-      {data?.map((bike) => {
+      {data?.map((bike, idx) => {
         var t = new Date(bike.date_stolen * 1000);
         var formatted =
           t.getDate() +
@@ -70,25 +69,31 @@ export default function List({ activePage, caseTitle }: listProps) {
           ('0' + t.getMinutes()).slice(-2);
 
         return (
-          <Card shadow="sm" padding="lg" radius="md" withBorder>
-            <Flex gap={30}>
-              <Box>
+          <Card shadow="sm" padding="lg" radius="md" withBorder key={idx}>
+            <Flex gap={30} direction={{ base: 'column', md: 'row' }}>
+              <Center>
                 {bike.large_img ? (
                   <Image
                     radius="md"
-                    w={300}
+                    w={{ base: 400, md: 300 }}
                     h={200}
                     src={bike.large_img}
                     fit="cover"
                   />
                 ) : (
-                  <BackgroundImage src="" bg="gray" w={300} h={200} radius={10}>
+                  <BackgroundImage
+                    src=""
+                    bg="gray"
+                    w={{ base: 400, md: 300 }}
+                    h={200}
+                    radius={10}
+                  >
                     <Center c="white" opacity={0.8} w="100%" h="100%">
                       No Image
                     </Center>
                   </BackgroundImage>
                 )}
-              </Box>
+              </Center>
               <Flex direction="column" justify={'space-around'}>
                 <Flex gap={10}>
                   <Text fw={700}>Title:</Text>
